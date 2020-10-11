@@ -50,7 +50,7 @@ samples/pyluxcoretool/__pycache__
 xcuserdata/
 *.xcworkspace
 *.xccheckout
-macos/
+/macos/
 ###########################
 # OS OSX, junk
 .DS_Store

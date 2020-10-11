@@ -31,30 +31,29 @@ find_package(Threads REQUIRED)
 find_package(OpenImageIO REQUIRED)
 include_directories(BEFORE SYSTEM ${OPENIMAGEIO_INCLUDE_DIR})
 find_package(OpenEXR REQUIRED)
+include_directories(BEFORE SYSTEM ${OPENEXR_INCLUDE_DIRS})
+find_package(TIFF REQUIRED)
+include_directories(BEFORE SYSTEM ${TIFF_INCLUDE_DIR})
+find_package(JPEG REQUIRED)
+include_directories(BEFORE SYSTEM ${JPEG_INCLUDE_DIR})
+find_package(PNG REQUIRED)
+include_directories(BEFORE SYSTEM ${PNG_PNG_INCLUDE_DIR})
 
-if(NOT APPLE)
-    # Apple has these available hardcoded and matched in macos repo, see Config_OSX.cmake
-
-    include_directories(BEFORE SYSTEM ${OPENEXR_INCLUDE_DIRS})
-    find_package(TIFF REQUIRED)
-    include_directories(BEFORE SYSTEM ${TIFF_INCLUDE_DIR})
-    find_package(JPEG REQUIRED)
-    include_directories(BEFORE SYSTEM ${JPEG_INCLUDE_DIR})
-    find_package(PNG REQUIRED)
-    include_directories(BEFORE SYSTEM ${PNG_PNG_INCLUDE_DIR})
-	# Find Python Libraries
-    if("${PYTHON_V}" EQUAL "27")
-        find_package(PythonLibs 2.7)
-    else()
-        find_package(PythonLibs 3.4)
-    endif()
+# Find Python Libraries
+if("${PYTHON_V}" EQUAL "27")
+	find_package(PythonLibs 2.7)
+else()
+	find_package(PythonLibs 3.4)
 endif()
 
-find_program(PYSIDE_UIC NAMES pyside-uic pyside2-uic
-		HINTS "${PYTHON_INCLUDE_DIRS}/../Scripts"
-		PATHS "c:/Program Files/Python${PYTHON_V}/Scripts")
-
 include_directories(${PYTHON_INCLUDE_DIRS})
+
+if(NOT APPLE)
+    find_program(PYSIDE_UIC NAMES pyside-uic pyside2-uic
+            HINTS "${PYTHON_INCLUDE_DIRS}/../Scripts"
+            PATHS "c:/Program Files/Python${PYTHON_V}/Scripts")
+
+endif()
 
 # Find Boost
 set(Boost_USE_STATIC_LIBS       OFF)

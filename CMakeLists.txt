@@ -155,6 +155,10 @@ if (BUILD_LUXCORE_DLL)
 	ADD_DEFINITIONS("-DLUXCORE_DLL")
 else()
 	set(LUXCORE_LIBRARY luxcore slg-core slg-film slg-kernels luxrays bcd opensubdiv openvdb ${BLOSC_LIBRARY} ${EMBREE_LIBRARY} ${OIDN_LIBRARY} ${TBB_LIBRARY} ${TIFF_LIBRARIES} ${TIFF_LIBRARIES} ${OPENEXR_LIBRARIES} ${PNG_LIBRARIES} ${JPEG_LIBRARIES})
+	if(APPLE)
+		list(APPEND LUXCORE_LIBRARY ${PYTHON_LIBRARIES})
+		list(REMOVE_DUPLICATES LUXCORE_LIBRARY)
+	endif()
 endif()
 
 ################################################################################
